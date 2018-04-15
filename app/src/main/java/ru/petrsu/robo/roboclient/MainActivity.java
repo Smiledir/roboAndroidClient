@@ -198,6 +198,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void run() {
 
+                hideUI();
+                mainTextView.setVisibility(View.VISIBLE);
+                readyButton.setVisibility(View.VISIBLE);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Сообщение!")
                         .setMessage("Тележка прибыла!")
@@ -277,7 +281,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         mainTextView.setVisibility(View.GONE);
     }
 
-    private void dataFromServer(JSONObject obj) throws JSONException {
+    private void dataFromServer(final JSONObject obj) throws JSONException {
+
+        final String track = obj.getString("trackName");
+        String text = getResources().getString(R.string.main_label) + " " + track;
+        mainTextView.setText(text);
 
         this.runOnUiThread(new Runnable() {
             @Override
@@ -285,13 +293,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                 hideUI();
                 mainTextView.setVisibility(View.VISIBLE);
-                readyButton.setVisibility(View.VISIBLE);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Сообщение!")
+                        .setMessage("Ожидайте тележку: " + track)
+                        .setCancelable(false)
+                        .setNegativeButton("ОК",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
-        String track = obj.getString("trackName");
-        String text = getResources().getString(R.string.main_label) + " " + track;
-        mainTextView.setText(text);
+
     }
 
     public void buttonReadyClick(View view) {
