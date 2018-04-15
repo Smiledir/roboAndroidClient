@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">roboClient</string>
+    <string name="button_send_main">Поиск..</string>
+    <string name="button_ready">Начать путь</string>
+    <string name="button_cancel">Закончить путь</string>
+    <string name="edit_text_main">Ищем..</string>
+    <string name="wait_label">Идет поиск тележки..</string>
+    <string name="main_label">Ваша тележка </string>
+</resources>
