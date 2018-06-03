@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
 
+    private TextView startPlaceTextView;
+    private TextView searhTextView;
+    private EditText startPlaceEditText;
     private EditText mainEditText;
     private Button searchMainButton;
     private Button cancelButton;
@@ -63,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        startPlaceTextView = findViewById(R.id.textViewStartPlace);
+        searhTextView = findViewById(R.id.textViewSearch);
+        startPlaceEditText = findViewById(R.id.editTextStartPlace);
         mainEditText = findViewById(R.id.editTextMain);
         searchMainButton = findViewById(R.id.buttonSearchMain);
         readyButton = findViewById(R.id.buttonReady);
@@ -78,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private void registerSockets(){
 
         try {
-            socket = IO.socket("http://192.168.1.2:4000");
+            socket = IO.socket("http://192.168.1.16:4000");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -203,10 +209,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 readyButton.setVisibility(View.VISIBLE);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Сообщение!")
-                        .setMessage("Тележка прибыла!")
+
+                String title = getResources().getString(R.string.alert_title);
+                String message = getResources().getString(R.string.message_place);
+                String buttonText = getResources().getString(R.string.button_alert);
+
+                builder.setTitle(title)
+                        .setMessage(message)
                         .setCancelable(false)
-                        .setNegativeButton("ОК",
+                        .setNegativeButton(buttonText,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
@@ -229,12 +240,20 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 hideUI();
                 mainEditText.setVisibility(View.VISIBLE);
                 searchMainButton.setVisibility(View.VISIBLE);
+                startPlaceTextView.setVisibility(View.VISIBLE);
+                searhTextView.setVisibility(View.VISIBLE);
+                startPlaceEditText.setVisibility(View.VISIBLE);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Сообщение!")
-                        .setMessage("Что-то пошло не так!\n" + message)
+
+                String title = getResources().getString(R.string.alert_title);
+                String messageMain = getResources().getString(R.string.message_error);
+                String buttonText = getResources().getString(R.string.button_alert);
+
+                builder.setTitle(title)
+                        .setMessage(messageMain + "\n" + message)
                         .setCancelable(false)
-                        .setNegativeButton("ОК",
+                        .setNegativeButton(buttonText,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
@@ -256,11 +275,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 hideUI();
                 mainEditText.setVisibility(View.VISIBLE);
                 searchMainButton.setVisibility(View.VISIBLE);
+                startPlaceTextView.setVisibility(View.VISIBLE);
+                searhTextView.setVisibility(View.VISIBLE);
+                startPlaceEditText.setVisibility(View.VISIBLE);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Сообщение!")
-                        .setMessage("Вы на месте!")
+
+                String title = getResources().getString(R.string.alert_title);
+                String message = getResources().getString(R.string.message_end);
+                String buttonText = getResources().getString(R.string.button_alert);
+
+                builder.setTitle(title)
+                        .setMessage(message)
                         .setCancelable(false)
-                        .setNegativeButton("ОК",
+                        .setNegativeButton(buttonText,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
@@ -273,6 +300,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void hideUI(){
+        startPlaceTextView.setVisibility(View.GONE);
+        searhTextView.setVisibility(View.GONE);
+        startPlaceEditText.setVisibility(View.GONE);
         mainEditText.setVisibility(View.GONE);
         searchMainButton.setVisibility(View.GONE);
         readyButton.setVisibility(View.GONE);
@@ -295,10 +325,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 mainTextView.setVisibility(View.VISIBLE);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Сообщение!")
-                        .setMessage("Ожидайте тележку: " + track)
+
+                String title = getResources().getString(R.string.alert_title);
+                String message = getResources().getString(R.string.message_wait);
+                String buttonText = getResources().getString(R.string.button_alert);
+
+                builder.setTitle(title)
+                        .setMessage(message + " " + track)
                         .setCancelable(false)
-                        .setNegativeButton("ОК",
+                        .setNegativeButton(buttonText,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
@@ -331,6 +366,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         hideUI();
         mainEditText.setVisibility(View.VISIBLE);
         searchMainButton.setVisibility(View.VISIBLE);
+        startPlaceTextView.setVisibility(View.VISIBLE);
+        searhTextView.setVisibility(View.VISIBLE);
+        startPlaceEditText.setVisibility(View.VISIBLE);
 
         try {
             JSONObject obj = new JSONObject();
@@ -359,6 +397,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             JSONObject obj = new JSONObject();
             obj.put("deviceId", Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID));
             obj.put("searchText", text);
+            obj.put("placeText", text);
 
             if(loc != null) {
                 JSONObject coordinates = new JSONObject();

@@ -1,9 +1,18 @@
 <resources>
     <string name="app_name">roboClient</string>
-    <string name="button_send_main">Поиск..</string>
+    <string name="button_send_main">Поиск</string>
     <string name="button_ready">Начать путь</string>
     <string name="button_cancel">Закончить путь</string>
     <string name="edit_text_main">Ищем..</string>
-    <string name="wait_label">Идет поиск тележки..</string>
-    <string name="main_label">Ваша тележка: </string>
+    <string name="wait_label">Идет поиск мобильного устройства..</string>
+    <string name="main_label">Ваш мобильноее устройство: </string>
+    <string name="search_label">Место прибытия: </string>
+    <string name="star_place_label">Место нахождения: </string>
+
+    <string name="button_alert">ОК </string>
+    <string name="alert_title">Сообщение </string>
+    <string name="message_wait">Ожидайте мобильное устройство: </string>
+    <string name="message_place">Мобильное устройство прибыло </string>
+    <string name="message_end">Вы на месте </string>
+    <string name="message_error">Ошибка: </string>
 </resources>

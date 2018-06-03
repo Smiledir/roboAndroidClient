@@ -7,19 +7,36 @@
     android:orientation="vertical"
     tools:context="ru.petrsu.robo.roboclient.MainActivity">
 
+    <TextView
+        android:id="@+id/textViewStartPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/star_place_label" />
+
+    <EditText
+        android:id="@+id/editTextStartPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/textViewStartPlace"
+        android:text="@string/edit_text_main" />
+
+    <TextView
+        android:id="@+id/textViewSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextStartPlace"
+        android:text="@string/search_label" />
+
     <EditText
         android:id="@+id/editTextMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="31dp"
-        android:ems="10"
+        android:layout_below="@+id/textViewSearch"
         android:inputType="textPersonName"
         android:text="@string/edit_text_main"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="16dp" />
+        />
 
     <Button
         android:id="@+id/buttonSearchMain"
